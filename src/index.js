@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Base from './scripts/baseContainer';
 import { Router, Route, Link, hashHistory} from 'react-router';
+import {Provider} from 'react-redux';
+
+import configureStore from './store/configureStore';
+import Base from './scripts/baseContainer';
+import CoursePage from './scripts/CoursesPage';
+
+const store = configureStore();
 
 const routeApp = (
-    <Router history={hashHistory}>
-        <Route path="/" component={Base}/>
-    </Router>
+    <Provider store={store}>
+        <Router history={hashHistory}>
+            <Route path="/" component={Base}/>
+            <Route path="/courses" component={CoursePage}/>
+        </Router>
+    </Provider>
  );
 
 ReactDOM.render(
