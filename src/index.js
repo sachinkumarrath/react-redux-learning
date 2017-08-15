@@ -3,19 +3,16 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, hashHistory} from 'react-router';
 import {Provider} from 'react-redux';
 
-import configureStore from './store/configureStore';
 import Base from './scripts/baseContainer';
-import CoursePage from './scripts/CoursesPage';
-
-const store = configureStore();
+import CoursePage from './scripts/components/courses/CoursePageContainer';
+import CoursePageSaga from './scripts/components/courses-saga/CoursePageSagaContainer';
 
 const routeApp = (
-    <Provider store={store}>
-        <Router history={hashHistory}>
-            <Route path="/" component={Base}/>
-            <Route path="/courses" component={CoursePage}/>
-        </Router>
-    </Provider>
+    <Router history={hashHistory}>
+        <Route path="/" component={Base}/>
+        <Route path="/courses" component={CoursePage}/>
+        <Route path="/course-saga" component={CoursePageSaga}/>
+    </Router>
  );
 
 ReactDOM.render(
