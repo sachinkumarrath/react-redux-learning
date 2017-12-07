@@ -2,23 +2,32 @@ import React, {PropTypes, Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
-import * as courseActions from "./actions/courseActions";
+// import * as courseActions from "./actions/courseActions";
+import {
+    createCourse,
+    completeCourse,
+    makeCourseEligible
+} from "./actions/courseActions";
 
 class CoursesPage extends React.Component {
 
     constructor(props, context){
         super(props, context);
         this.state = {
-            course : {title: ""}
+            title : ""
         };
         this.onTitleChange = this.onTitleChange.bind(this);
         this.onClickSave = this.onClickSave.bind(this);
+        // this.completeCourse = this.completeCourse.bind(this, index);
+    }
+
+    completeCourse(title, event) {
+        this.props.completeCourse(title);
     }
 
     onTitleChange(event) {
-        const course = this.state.course;
-        course.title = event.target.value;
-        this.setState({course: course});
+        const title = event.target.value;
+        this.setState({title: title});
     }
 
     onClickSave() {
@@ -26,19 +35,28 @@ class CoursesPage extends React.Component {
         // this.props.dispatch(courseActions.createCourse(this.state.course));
         // this.props.createCourse(this.state.course);
         // for bindActionCreators
-        this.props.actions.createCourse(this.state.course);
+        this.props.createCourse(this.state.title);
+        this.setState({title: ""});
     }
 
     render() {
         return (
             <div>
                 <h1>Courses</h1>
-                {this.props.courses.map((course, index) => <div key={index}>{course.title}</div>)}
+                {
+                    this.props.courses.map((course, index) => {
+                        let className = "";
+                        if (course.completed) {
+                            className = "striked-course";
+                        }
+                        return <div className={className} key={index} onClick={this.completeCourse.bind(this, course.title)}>{course.title}</div>
+                    })
+                }
                 <h2>Add Courses</h2>
                 <input
                     type="text"
                     onChange={this.onTitleChange}
-                    value={this.state.course.title} />
+                    value={this.state.title} />
                 <input
                     type="submit"
                     value="Save"
@@ -49,8 +67,7 @@ class CoursesPage extends React.Component {
 }
 
 CoursesPage.propTypes = {
-    courses: PropTypes.array.isRequired,
-    createCourse: PropTypes.object.isRequired
+    courses: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -66,9 +83,11 @@ const mapStateToProps = (state, ownProps) => {
 // }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        actions: bindActionCreators(courseActions, dispatch)
-    };
+    return bindActionCreators({
+        createCourse,
+        completeCourse,
+        makeCourseEligible
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);

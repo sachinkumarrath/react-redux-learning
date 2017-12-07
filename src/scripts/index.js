@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, hashHistory} from 'react-router';
 import {Provider} from 'react-redux';
 
-import Base from './scripts/baseContainer';
-import CoursePage from './scripts/components/courses/CoursePageContainer';
-import CoursePageSaga from './scripts/components/courses-saga/CoursePageSagaContainer';
+import Base from './components/react-sample/baseContainer';
+import CoursePage from './components/courses/CoursePageContainer';
+import CoursePageSaga from './components/courses-saga/CoursePageSagaContainer';
 
 const routeApp = (
     <Router history={hashHistory}>
@@ -13,12 +13,12 @@ const routeApp = (
         <Route path="/courses" component={CoursePage}/>
         <Route path="/course-saga" component={CoursePageSaga}/>
     </Router>
- );
+);
 
 ReactDOM.render(
-  routeApp,//<Base/>,
-  document.getElementById('root'),
-  completionReactLoad
+    routeApp,//<Base/>,
+    document.getElementById('root'),
+    completionReactLoad
 );
 
 function completionReactLoad(){

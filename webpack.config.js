@@ -2,7 +2,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  entry : ["babel-polyfill","./src/index.js"],
+  entry : ["babel-polyfill","./src/scripts/index.js"],
   output : {
       path : path.resolve("build"),
       publicPath : "/public/assets/",
@@ -17,7 +17,10 @@ module.exports = {
         {
             test: /\.(js|jsx)$/,
             exclude: /node_modules/,
-            loader: "babel-loader"
+            loader: "babel-loader",
+            query: {
+              "presets": ["es2015","react"]
+            }
         },
         {
             test: /\.css$/,
@@ -38,7 +41,7 @@ module.exports = {
     },
     devServer: {
         contentBase : "./pages",
-        port : 9098,
-        inline : false
+        port : 9090,
+        inline : true
     }
 };
