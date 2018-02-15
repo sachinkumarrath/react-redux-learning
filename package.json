@@ -25,6 +25,7 @@
   "homepage": "https://github.com/sachinkumarrath/react-redux-learning.git#readme",
   "dependencies": {
     "axios": "^0.17.1",
+    "javascript-tutorial": "^1.0.3",
     "jquery": "^3.1.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

@@ -9,7 +9,7 @@ import {
     makeCourseEligible
 } from "./actions/courseActions";
 
-class CoursesPage extends React.Component {
+class CoursesPage extends Component {
 
     constructor(props, context){
         super(props, context);

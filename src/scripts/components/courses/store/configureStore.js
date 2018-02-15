@@ -1,7 +1,8 @@
 import {createStore, applyMiddleware} from 'redux';
-import rootReducer from '../reducers/rootReducer';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import logger from 'redux-logger';
+
+import rootReducer from '../reducers/rootReducer';
 
 export default function configureStore(initialState) {
     return createStore(

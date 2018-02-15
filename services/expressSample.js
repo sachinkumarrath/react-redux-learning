@@ -6,7 +6,7 @@ let app = express();
 app.use((req, res, next) => {
     console.log("middleware for all requests");
     next();
-})
+});
 
 app.use("/redux-sample", (req, res, next) => {
     console.log("middleware for redux-sample requests");

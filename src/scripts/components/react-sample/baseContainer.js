@@ -36,6 +36,7 @@ export default class Base extends React.Component{
             <PostMessage messageBox={this.state.messageBox} />
             <div><Link to="/courses">Redux sample</Link></div>
             <div><Link to="/course-saga">Redux sample using saga</Link></div>
+            <div><Link to="/file-upload">File upload</Link></div>
         </div>);
     }
 }
