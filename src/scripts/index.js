@@ -7,14 +7,18 @@ import Base from './components/react-sample/baseContainer';
 import CoursePage from './components/courses/CoursePageContainer';
 import CoursePageSaga from './components/courses-saga/CoursePageSagaContainer';
 import FileUploader from "./components/file-uploader/FileUploaderContainer";
+import configureStore from "./configureStore";
 
+const store = configureStore();
 const routeApp = (
-    <Router history={hashHistory}>
-        <Route path="/" component={Base}/>
-        <Route path="/courses" component={CoursePage}/>
-        <Route path="/course-saga" component={CoursePageSaga}/>
-        <Route path="/file-upload" component={FileUploader}/>
-    </Router>
+    <Provider store={store}>
+        <Router history={hashHistory}>
+            <Route path="/" component={Base}/>
+            <Route path="/courses" component={CoursePage}/>
+            <Route path="/course-saga" component={CoursePageSaga}/>
+            <Route path="/file-upload" component={FileUploader}/>
+        </Router>
+    </Provider>
 );
 
 ReactDOM.render(

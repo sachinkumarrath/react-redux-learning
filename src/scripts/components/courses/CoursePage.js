@@ -1,15 +1,9 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
 
 // import * as courseActions from "./actions/courseActions";
-import {
-    createCourse,
-    completeCourse,
-    makeCourseEligible
-} from "./actions/courseActions";
 
-class CoursesPage extends Component {
+export default class CoursePage extends Component {
 
     constructor(props, context){
         super(props, context);
@@ -18,11 +12,11 @@ class CoursesPage extends Component {
         };
         this.onTitleChange = this.onTitleChange.bind(this);
         this.onClickSave = this.onClickSave.bind(this);
-        // this.completeCourse = this.completeCourse.bind(this, index);
+        this.completeCourse = this.completeCourse.bind(this);
     }
 
-    completeCourse(title, event) {
-        this.props.completeCourse(title);
+    completeCourse(event) {
+        this.props.completeCourse(event.target.getAttribute("data-title"));
     }
 
     onTitleChange(event) {
@@ -49,7 +43,8 @@ class CoursesPage extends Component {
                         if (course.completed) {
                             className = "striked-course";
                         }
-                        return <div className={className} key={index} onClick={this.completeCourse.bind(this, course.title)}>{course.title}</div>
+                        // return <div className={className} key={index} onClick={this.completeCourse.bind(this, course.title)}>{course.title}</div>
+                        return <div className={className} data-title={course.title} key={index} onClick={this.completeCourse}>{course.title}</div>
                     })
                 }
                 <h2>Add Courses</h2>
@@ -66,28 +61,6 @@ class CoursesPage extends Component {
     }
 }
 
-CoursesPage.propTypes = {
+CoursePage.propTypes = {
     courses: PropTypes.array.isRequired
 };
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-        courses: state.courses
-    };
-};
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         createCourse: course => dispatch(courseActions.createCourse(course))
-//     };
-// }
-
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators({
-        createCourse,
-        completeCourse,
-        makeCourseEligible
-    }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);

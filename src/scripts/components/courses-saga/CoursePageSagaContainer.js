@@ -1,20 +1,26 @@
 import React, {PropTypes, Component} from 'react';
-import {Provider} from 'react-redux';
+import {Provider, connect} from 'react-redux';
+import {bindActionCreators} from "redux";
 
+import * as courseActions from "./actions/courseActions";
 import CoursePage from './CoursePageSaga';
-import configureStore from './store/configureStore';
 
-export default class CoursePageContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.store = configureStore();
-    }
+const mapStateToProps = (state, ownProps) => {
+    return {
+        courses: state.courses
+    };
+};
 
-    render() {
-        return (
-            <Provider store={this.store}>
-                <CoursePage/>
-            </Provider>
-        );
-    }
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         createCourse: course => dispatch(courseActions.createCourse(course))
+//     };
+// }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(courseActions, dispatch)
+    };
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursePage);
